@@ -95,7 +95,7 @@ public class DynamicRouter4Test extends ContextTestSupport {
 
     /*
      * Routing algorithm:
-     * The message's current state is held by the header Exchange.SLIP_ENDPOINT.
+     * The message's current state is held by the header "STEP".
      * 1) if a message has never been seen (no header set), forward to step 1 (mock:step1a and mock:step1b)
      * 2) if the message has already gone through step 1 and is coming back to the router for the 2nd time, forward to step 2 (mock:step2)
      * 3) if the message has already gone through step 2 and is coming back to the router for the 3rd time, return null to signal the end of processing.
