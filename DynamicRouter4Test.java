@@ -105,16 +105,16 @@ public class DynamicRouter4Test extends ContextTestSupport {
         //messages that have never been previously processed
         if (previousStep == null) {
 
-            //forward to both step1a and step1b
+            //forward to step 1, represented here by two endpoints: step1a and step1b
             return "mock:step1a,mock:step1b";
 
-            //messages processed by step1, returning to the router for the 2nd time
+        //messages processed by step 1, returning to the router for the 2nd time
         } else if (Step.STEP_1 == previousStep) {
 
             //forward to step2
             return "mock:step2";
 
-            //messages processed by step2, returning to the router for the 3rd time
+        //messages processed by step 2, returning to the router for the 3rd time
         } else if (Step.STEP_2 == previousStep) {
 
             //end of workflow
@@ -122,8 +122,8 @@ public class DynamicRouter4Test extends ContextTestSupport {
 
         } else {
 
-            //cannot handle messages with unexpected origin
-            throw new IllegalStateException("Unexpected origin: " + previousStep);
+            //should never occur, but anyway
+            throw new IllegalStateException("Unexpected previous step: " + previousStep);
         }
 
     }
