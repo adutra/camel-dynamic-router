@@ -1,0 +1,29 @@
+Index: DynamicRouter.java
+===================================================================
+--- DynamicRouter.java	(revision 1097255)
++++ DynamicRouter.java	(working copy)
+@@ -60,16 +60,15 @@
+         }
+ 
+         public boolean hasNext(Exchange exchange) {
+-            if (current != null && current.hasNext()) {
+-                return true;
++            if (current == null) {
++                // evaluate next slip
++                Object routingSlip = slip.evaluate(exchange, Object.class);
++                if (routingSlip == null) {
++                    return false;
++                }
++                current = ObjectHelper.createIterator(routingSlip, uriDelimiter);
+             }
+-            // evaluate next slip
+-            Object routingSlip = slip.evaluate(exchange, Object.class);
+-            if (routingSlip == null) {
+-                return false;
+-            }
+-            current = ObjectHelper.createIterator(routingSlip, uriDelimiter);
+-            return current != null && current.hasNext();
++            return current.hasNext();
+         }
+ 
+         public Object next(Exchange exchange) {
